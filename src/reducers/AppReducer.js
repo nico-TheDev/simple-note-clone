@@ -1,8 +1,12 @@
-export default function AppReducer(state, action){
+import globalTypes from "../GlobalTypes";
 
-  switch(action.type){
-    default:
-      return state;
-  }
+export default function AppReducer(state, action) {
 
+    switch (action.type) {
+        case globalTypes.toggleNav:
+          console.log('navi')
+            return { ...state, navbarOpen: !state.navbarOpen };
+        default:
+            return state;
+    }
 }

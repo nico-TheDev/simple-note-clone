@@ -1,1 +1,3 @@
-export default {};
+export default {
+    toggleNav:'TOGGLE_NAV'
+};

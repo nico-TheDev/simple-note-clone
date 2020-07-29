@@ -1,18 +1,21 @@
 import React, { createContext, useState } from "react";
 
-const ThemeContext = createContext();
+export const ThemeContext = createContext();
 
 export default function ThemeContextProvider({ children }) {
   const palette = {
     dark: {
       main: "#2c3e50",
       sub: "#34495e",
-      text: "white"
+      text: "white",
+      accent:'#3498db'
     },
     light: {
       main: "#2c3e50",
       sub: "#34495e",
-      text: "white"
+      text: "white",
+      accent:'#3498db'
+
     }
   };
   const [theme, setTheme] = useState(palette.dark);

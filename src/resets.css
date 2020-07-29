@@ -6,7 +6,7 @@
   box-sizing: inherit;
   margin:0;
   padding:0;
-
+  transition:300ms;
 }
 html{
   box-sizing:border-box;
@@ -15,6 +15,7 @@ html{
 body{
   font-family:'Lato',sans-serif;
   line-height: 1.5;
+  overflow: hidden;
 }
 
 a{
@@ -32,6 +33,7 @@ button,input{
   font-size: inherit;
   background:none;
   color:inherit;
+  outline:none;
 }
 
 button{
@@ -39,3 +41,6 @@ button{
 }
 
 
+svg{
+  pointer-events: none;
+}
