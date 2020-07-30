@@ -6,7 +6,6 @@ const Sidebar = styled.div`
     border-right:1px solid black;
     border-left:1px solid black;
     transform:translateX(${props => props.navbarOpen ? '20vw' : '0'})
-
 `;
 
 export default Sidebar;

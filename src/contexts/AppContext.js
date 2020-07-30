@@ -24,7 +24,8 @@ export default function AppContextProvider({ children }) {
                 title: "Sample Title 1",
                 tags: [],
                 body:
-                    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit.",
+                    `"sample 1
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit."`,
             },
             {
                 id: uuidv4(),
@@ -32,7 +33,7 @@ export default function AppContextProvider({ children }) {
                     "Sample Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium, sequi. 2",
                 tags: [],
                 body:
-                    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit.",
+                    "32Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit.",
             },
             {
                 id: uuidv4(),

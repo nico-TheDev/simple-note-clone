@@ -15,20 +15,22 @@ export default function () {
     const location = useLocation();
     const { state } = useContext(AppContext);
     const regex = /trash/;
-    let previewItems;
+    let previewItems, noteType;
     
     console.log(regex.test(location.pathname));
 
     if(regex.test(location.pathname)){
+        noteType = 'trash'
         previewItems = state.trash;
     }else{
+        noteType = 'notes'
         previewItems = state.notes;
     }
 
     return (
         <PreviewList>
             {previewItems.map((item) => (
-                <NotePreview key={item.id} details={item}/>
+                <NotePreview key={item.id} details={item} noteType={noteType}/>
             ))}
         </PreviewList>
     );

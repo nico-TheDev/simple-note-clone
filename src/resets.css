@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300;1,700&display=swap');
 
+:root{
+
+        --darkMain: #2c3e50;
+        --darkSub: #34495e;
+        --darkText: white;
+        --darkAccent: #3498db;
+        --lightMain: white;
+        --lightSub: gray;
+        --lightText: black;
+        --lightAccent: #3498db;
+    
+}
+
 *,
 *::before,
 *::after{
@@ -43,4 +56,8 @@ button{
 
 svg{
   pointer-events: none;
+}
+
+button:hover svg{
+  fill:var(--darkAccent) !important;
 }

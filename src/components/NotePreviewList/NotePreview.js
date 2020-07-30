@@ -29,12 +29,12 @@ function cutText(limit, text) {
     }
 }
 
-export default function NotePreview({ details: { title, body,id } }) {
+export default function NotePreview({ details: { title, body,id }, noteType }) {
     return (
-        <Link to={`/note/${id}`}>
+        <Link to={`/${noteType}/${id}`}>
             <NoteBox>
-                <h3>{cutText(25, title)}</h3>
-                <Subtitle>{cutText(40, body)}</Subtitle>
+                <h3>{title ? cutText(25, title) : 'New Note'}</h3>
+                <Subtitle>{body ? cutText(40, body.slice(40)) : 'New Note'}</Subtitle>
             </NoteBox>
         </Link>
     );
