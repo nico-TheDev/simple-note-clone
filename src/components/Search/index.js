@@ -20,7 +20,7 @@ export default function () {
 
             <SearchInput placeholder="All Notes" type="text" />
 
-            <Button>
+            <Button onClick={() => dispatch({ type: globalTypes.addNote })}>
                 <Icon>
                     <use href={`${iconDir}#icon-add-note`}></use>
                 </Icon>

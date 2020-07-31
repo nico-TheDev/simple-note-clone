@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 import globalTypes from "../../GlobalTypes";
 
 const Display = styled.div`
-    display: grid;
+    display: ${props => props.noteId ? 'grid' : 'none'};
     grid-template-rows: 12vh 1fr;
     transform: translateX(${(props) => (props.navbarOpen ? "20vw" : "0")});
 `;
@@ -26,10 +26,30 @@ const DisplayInput = styled.textarea`
     background: transparent;
 `;
 
+const CustomButton = styled(Button)`
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: block;
+        background-color: rgba(0, 0, 0, 0.2);
+        top: 0;
+        left: 0;
+        opacity: 0;
+    }
+
+    &:hover::before {
+        opacity: 1;
+    }
+`;
+
 export default function () {
     const location = useLocation();
     const { state, dispatch } = useContext(AppContext);
-    let { darkMode,setDarkMode } = useContext(ThemeContext);
+    let { darkMode, setDarkMode } = useContext(ThemeContext);
     const noteId = location.pathname.slice(7);
     let currentNote,
         noteType,
@@ -57,17 +77,35 @@ export default function () {
 
     currentNote && console.log(currentNote.body);
     return (
-        <Display navbarOpen={state.navbarOpen}>
+        <Display navbarOpen={state.navbarOpen} noteId={noteId}>
             <Head>
                 {trashMode ? (
                     <>
                         <Button></Button>
-                        <Button bg="crimson" color="white">
+                        <CustomButton
+                            bg="crimson"
+                            color="white"
+                            onClick={() =>
+                                dispatch({
+                                    type: globalTypes.deleteNote,
+                                    id: noteId,
+                                })
+                            }
+                        >
                             Delete Forever
-                        </Button>
-                        <Button bg="limegreen" color="white">
+                        </CustomButton>
+                        <CustomButton
+                            bg="limegreen"
+                            color="white"
+                            onClick={() =>
+                                dispatch({
+                                    type: globalTypes.restoreNote,
+                                    id: noteId,
+                                })
+                            }
+                        >
                             Restore
-                        </Button>
+                        </CustomButton>
                     </>
                 ) : (
                     <>
@@ -77,14 +115,19 @@ export default function () {
                             </Icon>
                         </Button>
 
-                        <Button
-                            onClick={() => setDarkMode(!darkMode)}
-                        >
+                        <Button onClick={() => setDarkMode(!darkMode)}>
                             <Icon>
                                 <use href={iconDir + "#icon-moon"}></use>
                             </Icon>
                         </Button>
-                        <Button>
+                        <Button
+                            onClick={() =>
+                                dispatch({
+                                    type: globalTypes.removeNote,
+                                    id: noteId,
+                                })
+                            }
+                        >
                             <Icon>
                                 <use href={iconDir + "#icon-delete"}></use>
                             </Icon>

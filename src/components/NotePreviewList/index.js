@@ -6,7 +6,15 @@ import { useLocation } from 'react-router-dom';
 
 const PreviewList = styled.div`
     height: 100%;
-    overflow-y: initial;
+    overflow-y: ${  props => props.length > 6 ? 'scroll' : 'initial'};
+`;
+
+const Placeholder = styled.h2`
+    text-align:center;
+    font-size:1.2rem;
+    font-weight:bold;
+    padding:1rem;
+    width:100%;
 `;
 
 // Overflow only when notes are over 6;
@@ -17,7 +25,6 @@ export default function () {
     const regex = /trash/;
     let previewItems, noteType;
     
-    console.log(regex.test(location.pathname));
 
     if(regex.test(location.pathname)){
         noteType = 'trash'
@@ -28,10 +35,10 @@ export default function () {
     }
 
     return (
-        <PreviewList>
-            {previewItems.map((item) => (
+        <PreviewList length={state.notes.length}>
+            {previewItems.length > 0 ? previewItems.map((item) => (
                 <NotePreview key={item.id} details={item} noteType={noteType}/>
-            ))}
+            )) : <Placeholder>No Item Found 📝</Placeholder>}
         </PreviewList>
     );
 }

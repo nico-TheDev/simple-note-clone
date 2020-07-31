@@ -19,39 +19,30 @@ export default function AppContextProvider({ children }) {
         navbarOpen: false,
         infoBarOpen: false,
         notes: [
-            {
-                id: uuidv4(),
-                title: "Sample Title 1",
-                tags: [],
-                body:
-                    `"sample 1
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit."`,
-            },
-            {
-                id: uuidv4(),
-                title:
-                    "Sample Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium, sequi. 2",
-                tags: [],
-                body:
-                    "32Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit.",
-            },
-            {
-                id: uuidv4(),
-                title: "Sample Title 3",
-                tags: [],
-                body:
-                    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit.",
-            },
+            // {
+            //     id: uuidv4(),
+            //     title: "Sample Title 1",
+            //     tags: [],
+            //     body: `"sample 1
+            //         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit."`,
+            // },
+            // {
+            //     id: uuidv4(),
+            //     title:
+            //         "Sample Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium, sequi. 2",
+            //     tags: [],
+            //     body:
+            //         "32Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit.",
+            // },
+            // {
+            //     id: uuidv4(),
+            //     title: "Sample Title 3",
+            //     tags: [],
+            //     body:
+            //         "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit.",
+            // },
         ],
-        trash: [
-            {
-                id: uuidv4(),
-                title: "Trash Title 3",
-                tags: [],
-                body:
-                    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit.",
-            },
-        ],
+        trash: [],
         tags: [
             {
                 id: uuidv4(),
