@@ -19,13 +19,22 @@ export default function AppContextProvider({ children }) {
         navbarOpen: false,
         infoBarOpen: false,
         notes: [
-            // {
-            //     id: uuidv4(),
-            //     title: "Sample Title 1",
-            //     tags: [],
-            //     body: `"sample 1
-            //         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit."`,
-            // },
+            {
+                id: uuidv4(),
+                title: "Sample Title 1",
+                tags: [
+                    {
+                        id: uuidv4(),
+                        title: "Tag1",
+                    },
+                    {
+                        id: uuidv4(),
+                        title: "Tag2",
+                    },
+                ],
+                body: `"sample 1
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit."`,
+            },
             // {
             //     id: uuidv4(),
             //     title:

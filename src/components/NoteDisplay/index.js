@@ -8,9 +8,13 @@ import { AppContext } from "../../contexts/AppContext";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { useLocation } from "react-router-dom";
 import globalTypes from "../../GlobalTypes";
+import TagContainer from "./TagContainer";
+import Taglist from "./Taglist";
+import TagInput from "./TagInput";
+import Tag from "./Tag";
 
 const Display = styled.div`
-    display: ${props => props.noteId ? 'grid' : 'none'};
+    display: ${(props) => (props.noteId ? "grid" : "none")};
     grid-template-rows: 12vh 1fr;
     transform: translateX(${(props) => (props.navbarOpen ? "20vw" : "0")});
 `;
@@ -49,11 +53,13 @@ const CustomButton = styled(Button)`
 export default function () {
     const location = useLocation();
     const { state, dispatch } = useContext(AppContext);
+    const [query, setQuery] = useState("");
     let { darkMode, setDarkMode } = useContext(ThemeContext);
     const noteId = location.pathname.slice(7);
     let currentNote,
         noteType,
-        trashMode = /trash/.test(location.pathname);
+        trashMode = /trash/.test(location.pathname),
+        listOfTags;
 
     console.log(location);
     console.log(location.pathname.slice(7));
@@ -74,6 +80,13 @@ export default function () {
             }
         });
     }
+
+    listOfTags =
+        currentNote && currentNote.tags.length !== 0
+            ? currentNote.tags.map((tag) => (
+                  <Tag key={tag.id} tagName={tag.title} />
+              ))
+            : null;
 
     currentNote && console.log(currentNote.body);
     return (
@@ -153,6 +166,28 @@ export default function () {
                     })
                 }
             ></DisplayInput>
+
+            <TagContainer
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    dispatch({
+                        type: globalTypes.addTag,
+                        id: noteId,
+                        tagname: query,
+                        noteType
+                    });
+                    setQuery('');
+                }}
+            >
+                <Taglist>{listOfTags}</Taglist>
+                <TagInput
+                    bg={darkMode}
+                    type="text"
+                    placeholder="Add a tag..."
+                    onChange={(e) => setQuery(e.target.value)}
+                    value={query}
+                />
+            </TagContainer>
         </Display>
     );
 }

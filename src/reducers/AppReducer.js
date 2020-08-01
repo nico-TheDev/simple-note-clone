@@ -87,6 +87,41 @@ export default function AppReducer(state, action) {
                 notes: [...state.notes, restoredNote],
             };
 
+        case globalTypes.addTag:
+            const newState = { ...state };
+            const newTags = newState.tags.some(
+                (item) => item.title === action.tagname
+            )
+                ? [...newState.tags]
+                : [
+                      ...newState.tags,
+                      {
+                          id: uuidv4(),
+                          title: action.tagname,
+                      },
+                  ];
+            newState.tags = newTags;
+
+            newState[action.noteType] = newState[action.noteType].map(
+                (item) => {
+                    if (item.id === action.id) {
+                        return {
+                            ...item,
+                            tags: [
+                                ...item.tags,
+                                {
+                                    id: uuidv4(),
+                                    title: action.tagname,
+                                },
+                            ],
+                        };
+                    } else {
+                        return item;
+                    }
+                }
+            );
+            return newState;
+
         default:
             return state;
     }

@@ -4,5 +4,7 @@ export default {
     addNote:'ADD_NOTE',
     removeNote:'REMOVE_NOTE',
     restoreNote:'RESTORE_NOTE',
-    deleteNote:'DELETE_NOTE'
+    deleteNote:'DELETE_NOTE',
+    addTag:'ADD_TAG',
+    removeTag:'REMOVE_TAG',
 };
