@@ -6,7 +6,7 @@ import { ThemeContext } from "../../contexts/ThemeContext";
 const Tag = styled.li`
     & a {
         padding: 0.3rem 1.5rem;
-        background: ${(props) => (props.bg ? "white" : "gray")};
+        background-color: ${(props) => (props.bg ? "white" : "gray")};
         border:${(props) => (props.bg ? "1px solid black" : "none")};
         color: inherit;
         border-radius: 4rem;

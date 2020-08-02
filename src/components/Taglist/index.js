@@ -35,7 +35,7 @@ export default function () {
                 </Button>
             </ListHead>
             {state.tags.map((item) => (
-                <Tag key={item.id} name={item.title} editMode={editMode}/>
+                <Tag key={item.id} details={item} editMode={editMode}/>
             ))}
         </List>
     );

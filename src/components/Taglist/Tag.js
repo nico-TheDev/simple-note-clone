@@ -1,9 +1,12 @@
 import styled from "styled-components";
-import React from "react";
+import React,{ useContext } from "react";
 import Button from "../shared/Button";
 import iconDir from "../icon.svg";
 import Icon from "../shared/Icon";
 import { Link } from "react-router-dom";
+import { AppContext } from "../../contexts/AppContext";
+import globalTypes from '../../GlobalTypes';
+
 
 const Tag = styled.li`
     height: max-content;
@@ -11,22 +14,21 @@ const Tag = styled.li`
     display: flex;
     align-items: center;
     width: 100%;
-    padding:0 0.5rem;
+    padding: 0 0.5rem;
     a {
         flex: 1;
-        display:inline-block;
+        display: inline-block;
     }
-
 
     & button:first-child {
         position: relative;
         opacity: 1;
-        left:${props => props.editMode ? '0' : '-100%'};
+        left: ${(props) => (props.editMode ? "0" : "-100%")};
     }
     & button:last-child {
         position: relative;
         opacity: 1;
-        right:${props => props.editMode ? '0' : '-100%'};
+        right: ${(props) => (props.editMode ? "0" : "-100%")};
     }
 
     /* &:hover button:first-child{
@@ -38,13 +40,17 @@ const Tag = styled.li`
 `;
 
 const TagName = styled.p`
-    margin:0 10px;
+    margin: 0 10px;
 `;
 
-export default function ({ name,editMode }) {
+export default function ({ details: { title: name, id }, editMode }) {
+    const { dispatch } = useContext(AppContext);
+
+
+
     return (
         <Tag editMode={editMode}>
-            <Button>
+            <Button onClick={() => dispatch({ type:globalTypes.removeTag,id }) }>
                 <Icon>
                     <use href={`${iconDir}#icon-delete1`}></use>
                 </Icon>

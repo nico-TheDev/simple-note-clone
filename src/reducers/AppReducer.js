@@ -89,40 +89,52 @@ export default function AppReducer(state, action) {
 
         case globalTypes.addTag:
             const newState = { ...state };
-            const newTags = newState.tags.some(
-                (item) => item.title === action.tagname
-            )
-                ? [...newState.tags]
-                : [
-                      ...newState.tags,
-                      {
-                          id: uuidv4(),
-                          title: action.tagname,
-                      },
-                  ];
-            newState.tags = newTags;
+            if (action.tagname !== "") {
+                const newTags = checkTag(newState.tags, action.tagname);
 
-            newState[action.noteType] = newState[action.noteType].map(
-                (item) => {
-                    if (item.id === action.id) {
-                        return {
-                            ...item,
-                            tags: [
-                                ...item.tags,
-                                {
-                                    id: uuidv4(),
-                                    title: action.tagname,
-                                },
-                            ],
-                        };
-                    } else {
-                        return item;
+                newState.tags = newTags; // assign new tags to the main list of tags
+
+                newState[action.noteType] = newState[action.noteType].map(
+                    (item) => {
+                        if (item.id === action.id) {
+                            const newTags = checkTag(item.tags, action.tagname);
+
+                            return {
+                                ...item,
+                                tags: newTags,
+                            };
+                        } else {
+                            return item;
+                        }
                     }
-                }
-            );
+                );
+            }
+
             return newState;
+
+        case globalTypes.removeTag:
+            return {
+                ...state,
+                tags:[...state.tags.filter(item => item.id !== action.id)]
+            }
 
         default:
             return state;
+    }
+}
+
+function checkTag(tagArr, tagname) {
+    const isTagPresent = tagArr.some((item) => item.title === tagname);
+
+    if (isTagPresent) {
+        return [...tagArr];
+    } else {
+        return [
+            ...tagArr,
+            {
+                id: uuidv4(),
+                title: tagname,
+            },
+        ];
     }
 }
