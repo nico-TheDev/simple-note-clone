@@ -22,7 +22,7 @@ const ListHead = styled.li`
 `;
 
 const CustomButton = styled(Button)`
-    display: ${(props) => (props.display ? "inline-block" : "none")};
+    display: ${(props) => (props.isDisplayed ? "inline-block" : "none")};
 `;
 
 export default function () {
@@ -34,7 +34,7 @@ export default function () {
             <ListHead>
                 <h3>Tags</h3>
 
-                <CustomButton display={state.tags.length !== 0} onClick={() => setEditMode(!editMode)}>
+                <CustomButton isDisplayed={state.tags.length !== 0} onClick={() => setEditMode(!editMode)}>
                     {editMode ? "Done" : "Edit"}
                 </CustomButton>
             </ListHead>

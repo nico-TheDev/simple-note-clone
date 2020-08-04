@@ -15,7 +15,8 @@ const Tag = styled.li`
         border-color:${props => props.darkMode ? 'transparent' : 'black'};
     
         &:hover {
-            background: lime;
+            background:${props => props.darkMode ? 'white' : 'black'};
+            color:${props => props.darkMode ? 'black' : 'white'};
         }
     }
 `;
