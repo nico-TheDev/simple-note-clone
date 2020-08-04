@@ -61,8 +61,8 @@ button:hover svg {
     fill: var(--darkAccent) !important;
 }
 
-.note{
-  display:none;
+.note {
+    display: none;
 }
 
 @media only screen and (max-width: 800px) {
@@ -71,16 +71,16 @@ button:hover svg {
         color: white;
     }
 
-    #root{
-      display:none;
+    #root {
+        display: none;
     }
 
-    .note{
-      display:grid;
-      width:100%;
-      height:100vh;
-      place-items: center;
-      padding:3rem;
-      text-align: center;
+    .note {
+        display: grid;
+        width: 100%;
+        height: 100vh;
+        place-items: center;
+        padding: 3rem;
+        text-align: center;
     }
 }
