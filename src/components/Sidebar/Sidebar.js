@@ -4,8 +4,12 @@ const Sidebar = styled.div`
     display:grid;
     grid-template-rows:12vh 88vh;
     border-right:1px solid black;
-    border-left:1px solid black;
-    transform:translateX(${props => props.navbarOpen ? '20vw' : '0'})
+    transform:translateX(${props => props.navbarOpen ? '20vw' : '0'});
+    filter:${props => props.navbarOpen ? 'blur(3px)' : 'none'};
+    /* visibility:${props => props.sidebarOpen ? 'visible' : 'hidden'}; */
+    /* position:${props => props.sidebarOpen ? 'static' : 'absolute'}; */
+    /* order:${props => props.sidebarOpen ? '10' : 'unset'}; */
+
 `;
 
 export default Sidebar;

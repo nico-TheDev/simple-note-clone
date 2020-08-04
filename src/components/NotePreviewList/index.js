@@ -6,7 +6,9 @@ import { useLocation } from "react-router-dom";
 
 const PreviewList = styled.div`
     height: 100%;
+    display:grid;
     overflow-y: ${(props) => (props.length > 6 ? "scroll" : "initial")};
+    align-content:start;
 `;
 
 const Placeholder = styled.h2`

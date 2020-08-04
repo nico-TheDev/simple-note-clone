@@ -10,6 +10,10 @@ const Tag = styled.li`
         border-radius: 4rem;
         margin: 0.5rem;
         display: inline-block;
+        background:${props => props.darkMode ? 'gray' : 'white'};
+        border:1px solid transparent;
+        border-color:${props => props.darkMode ? 'transparent' : 'black'};
+    
         &:hover {
             background: lime;
         }
@@ -20,10 +24,8 @@ export default function ({ tagName }) {
     const { darkMode } = useContext(ThemeContext);
 
     return (
-        <Tag>
-            <Link to={`/tag/${tagName}`} bg={darkMode.toString()}>
-                {tagName}
-            </Link>
+        <Tag darkMode={darkMode}>
+            <Link to={`/tag/${tagName}`}>{tagName}</Link>
         </Tag>
     );
 }

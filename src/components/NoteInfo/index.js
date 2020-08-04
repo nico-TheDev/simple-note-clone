@@ -14,12 +14,16 @@ const InfoHead = styled.li`
     align-items: center;
 `;
 
+const InfoDate = styled.li`
+    display: grid;
+    gap: 5px;
+`;
 export default function () {
     const { darkMode, currentNote } = useContext(ThemeContext);
     const { state, dispatch } = useContext(AppContext);
 
     return (
-        <InfoBody theme={darkMode} showInfo={state.infoBarOpen}>
+        <InfoBody darkMode={darkMode} showInfo={state.infoBarOpen}>
             <InfoHead>
                 <h3>Info</h3>
                 <Button
@@ -31,9 +35,14 @@ export default function () {
                 </Button>
             </InfoHead>
 
-            <li>Modified: insert time here</li>
+            <InfoDate>
+                Modified:{" "}
+                <span>{currentNote ? currentNote.modified : null}</span>
+            </InfoDate>
 
-            <li>{currentNote ? currentNote.body.split(' ').length : null} words</li>
+            <li>
+                {currentNote ? currentNote.body.split(" ").length : null} words
+            </li>
 
             <li>{currentNote ? currentNote.body.length : null} characters</li>
 

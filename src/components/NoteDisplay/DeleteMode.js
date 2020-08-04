@@ -1,8 +1,9 @@
-import React,{ useContext } from "react";
+import React, { useContext } from "react";
 import Button from "../shared/Button";
 import styled from "styled-components";
 import { AppContext } from "../../contexts/AppContext";
 import globalTypes from "../../GlobalTypes";
+import { useHistory } from "react-router-dom";
 
 const CustomButton = styled(Button)`
     position: relative;
@@ -26,6 +27,7 @@ const CustomButton = styled(Button)`
 
 export default function DeleteMode({ noteId }) {
     const { state, dispatch } = useContext(AppContext);
+    const history = useHistory();
 
     return (
         <>
@@ -33,24 +35,26 @@ export default function DeleteMode({ noteId }) {
             <CustomButton
                 bg="crimson"
                 color="white"
-                onClick={() =>
+                onClick={() => {
                     dispatch({
                         type: globalTypes.deleteNote,
                         id: noteId,
-                    })
-                }
+                    });
+                    history.push("/trash");
+                }}
             >
                 Delete Forever
             </CustomButton>
             <CustomButton
                 bg="limegreen"
                 color="white"
-                onClick={() =>
+                onClick={() => {
                     dispatch({
                         type: globalTypes.restoreNote,
                         id: noteId,
-                    })
-                }
+                    });
+                    history.push("/trash");
+                }}
             >
                 Restore
             </CustomButton>

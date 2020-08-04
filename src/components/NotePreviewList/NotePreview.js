@@ -31,11 +31,11 @@ function cutText(limit, text) {
 }
 
 export default function NotePreview({
-    details: { title, body, id },
+    details: { title, body, id, pinToTop },
     noteType,
 }) {
     return (
-        <Link to={`/${noteType}/${id}`}>
+        <Link to={`/${noteType}/${id}`} style={{order: pinToTop ? '-999' : 'unset'}}>
             <NoteBox>
                 <h3>{title ? cutText(45, title) : "New Note"}</h3>
                 <Subtitle withText={body}>

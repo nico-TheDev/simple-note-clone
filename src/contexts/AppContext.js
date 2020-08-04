@@ -15,7 +15,7 @@ note = {
 
 export default function AppContextProvider({ children }) {
     const [state, dispatch] = useReducer(AppReducer, {
-        sidebarOpen: false,
+        sidebarOpen: true,
         navbarOpen: false,
         infoBarOpen: false,
         notes: [

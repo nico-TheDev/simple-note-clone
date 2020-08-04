@@ -8,6 +8,7 @@ class Note {
         this.tags = tags;
         this.body = body;
         this.pinToTop = false;
+        this.modified = getTime();
     }
 }
 
@@ -22,6 +23,8 @@ export default function AppReducer(state, action) {
         case globalTypes.changeCurrentNote:
             const assignedNote = { ...action.note };
             return { ...state, currentNote: assignedNote };
+        case globalTypes.toggleSidebar:
+            return { ...state, sidebarOpen: !state.sidebarOpen };
         case globalTypes.handleNotesChange:
             const stateCopy = { ...state };
             stateCopy[action.noteType] = stateCopy[action.noteType].map(
@@ -31,6 +34,7 @@ export default function AppReducer(state, action) {
                             ...item,
                             body: action.text,
                             title: action.text.slice(0, 25),
+                            modified: getTime(),
                         };
                     } else {
                         return item;
@@ -164,4 +168,36 @@ function checkTag(tagArr, tagname) {
             },
         ];
     }
+}
+
+function padZero(time) {
+    return time < 10 ? `0${time}` : time;
+}
+
+function getTime() {
+    const date = new Date();
+    const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ];
+
+    const h = date.getHours() + 1 > 12 ? date.getHours() - 12 : date.getHours();
+    const type = date.getHours() + 1 > 12 ? "PM" : "AM";
+    const m = date.getMinutes();
+
+    const time = `${
+        months[date.getMonth()]
+    } ${date.getDay()}, ${date.getFullYear()} ${h}:${padZero(m)} ${type}`;
+
+    return time;
 }

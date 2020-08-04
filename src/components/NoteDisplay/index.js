@@ -13,9 +13,11 @@ import DeleteMode from "./DeleteMode";
 import NonDeleteMode from "./NonDeleteMode";
 
 const Display = styled.div`
+    width: 100%;
     display: ${(props) => (props.noteId ? "grid" : "none")};
     grid-template-rows: 12vh 1fr;
     transform: translateX(${(props) => (props.navbarOpen ? "20vw" : "0")});
+    filter: ${(props) => (props.navbarOpen ? "blur(3px)" : "none")};
 `;
 
 const DisplayInput = styled.textarea`
@@ -27,13 +29,14 @@ const DisplayInput = styled.textarea`
     height: 100%;
     font-size: 1.2rem;
     background: transparent;
+    width:100%;
 `;
 
 export default function () {
     const location = useLocation();
     const { state, dispatch } = useContext(AppContext);
     const [query, setQuery] = useState("");
-    let { darkMode,setCurrentNote } = useContext(ThemeContext);
+    let { darkMode, setCurrentNote } = useContext(ThemeContext);
     const noteId = location.pathname.slice(7);
     let currentNote,
         noteType,

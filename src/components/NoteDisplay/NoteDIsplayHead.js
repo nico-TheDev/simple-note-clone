@@ -6,7 +6,7 @@ export default styled.div`
     align-items:center;
     border-bottom:1px solid black;
     padding:0.5rem 1rem;
-
+    width:100%;
     & button{
         margin-left:1rem;
     }

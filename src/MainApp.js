@@ -13,9 +13,13 @@ export default function MainApp() {
 
     return (
         <React.Fragment>
-            <Main darkMode={darkMode} showInfo={state.infoBarOpen}>
+            <Main
+                darkMode={darkMode}
+                showInfo={state.infoBarOpen}
+                sidebarOpen={state.sidebarOpen}
+            >
                 <Navi />
-                <Sidebar />
+                <Sidebar sidebarOpen={state.sidebarOpen} />
                 <NoteDisplay />
             </Main>
             <NoteInfo showInfo={state.infoBarOpen} />

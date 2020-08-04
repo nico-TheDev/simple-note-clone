@@ -9,10 +9,13 @@ export default styled.ul`
     position: absolute;
     top: 0;
     right: 0;
-    background: ${(props) => (props.theme ? 'var(--darkMain)' : "var(--lightMain)")};
-    transform: ${(props) => props.showInfo ? "translateX(0)" : "translateX(100%)"};
-    color:${(props) => (props.theme ? 'var(--darkText)' : 'var(--lightText)')};
-    border-left:1px solid black;
+    background: ${(props) =>
+        props.darkMode ? "var(--darkMain)" : "var(--lightMain)"};
+    transform: ${(props) =>
+        props.showInfo ? "translateX(0)" : "translateX(100%)"};
+    color: ${(props) =>
+        props.darkMode ? "var(--darkText)" : "var(--lightText)"};
+    border-left: 1px solid black;
     & > * {
         padding: 0.5rem 1rem;
     }

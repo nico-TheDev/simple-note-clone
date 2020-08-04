@@ -7,4 +7,5 @@ export default styled.nav`
     position:absolute;
     height:100%;
     transform:translateX(${props => props.open ? '0' : '-100%'});
+    border-right:1px solid black;
 `;
