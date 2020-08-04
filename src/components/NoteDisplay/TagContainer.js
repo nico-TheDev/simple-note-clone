@@ -7,7 +7,8 @@ export default styled.form`
     position:absolute;
     bottom:0;
     width:100%;
-    min-height:2rem;
+    height:10vh;
+    overflow:scroll;
+    overflow-x:hidden;
     justify-items:start;
-
 `;

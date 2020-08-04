@@ -18,6 +18,10 @@ const Display = styled.div`
     grid-template-rows: 12vh 1fr;
     transform: translateX(${(props) => (props.navbarOpen ? "20vw" : "0")});
     filter: ${(props) => (props.navbarOpen ? "blur(3px)" : "none")};
+
+    @media only screen and (max-width: 800px) {
+        transform: translateX(0);
+    }
 `;
 
 const DisplayInput = styled.textarea`
@@ -29,7 +33,7 @@ const DisplayInput = styled.textarea`
     height: 100%;
     font-size: 1.2rem;
     background: transparent;
-    width:100%;
+    width: 100%;
 `;
 
 export default function () {
@@ -105,14 +109,16 @@ export default function () {
                     setQuery("");
                 }}
             >
-                <Taglist>{listOfTags}</Taglist>
-                <TagInput
-                    bg={darkMode}
-                    type="text"
-                    placeholder="Add a tag..."
-                    onChange={(e) => setQuery(e.target.value)}
-                    value={query}
-                />
+                <Taglist>
+                    {listOfTags}{" "}
+                    <TagInput
+                        bg={darkMode}
+                        type="text"
+                        placeholder="Add a tag..."
+                        onChange={(e) => setQuery(e.target.value)}
+                        value={query}
+                    />
+                </Taglist>
             </TagContainer>
         </Display>
     );

@@ -41,10 +41,10 @@ export default function () {
             </InfoDate>
 
             <li>
-                {currentNote ? currentNote.body.split(" ").length : null} words
+                {currentNote ? currentNote.body.split(" ").length - 1 : 0} words
             </li>
 
-            <li>{currentNote ? currentNote.body.length : null} characters</li>
+            <li>{currentNote ? currentNote.body.length : 0} characters</li>
 
             <InfoHead>
                 <label htmlFor="check">Pin To Top</label>

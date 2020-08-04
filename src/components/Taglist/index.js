@@ -17,8 +17,12 @@ const ListHead = styled.li`
 
     h3 {
         margin-right: auto;
-        padding-left:2rem;
+        padding-left: 2rem;
     }
+`;
+
+const CustomButton = styled(Button)`
+    display: ${(props) => (props.display ? "inline-block" : "none")};
 `;
 
 export default function () {
@@ -30,12 +34,12 @@ export default function () {
             <ListHead>
                 <h3>Tags</h3>
 
-                <Button onClick={() => setEditMode(!editMode)}>
+                <CustomButton display={state.tags.length !== 0} onClick={() => setEditMode(!editMode)}>
                     {editMode ? "Done" : "Edit"}
-                </Button>
+                </CustomButton>
             </ListHead>
             {state.tags.map((item) => (
-                <Tag key={item.id} details={item} editMode={editMode}/>
+                <Tag key={item.id} details={item} editMode={editMode} />
             ))}
         </List>
     );

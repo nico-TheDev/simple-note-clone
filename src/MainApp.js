@@ -18,8 +18,8 @@ export default function MainApp() {
                 showInfo={state.infoBarOpen}
                 sidebarOpen={state.sidebarOpen}
             >
-                <Navi />
-                <Sidebar sidebarOpen={state.sidebarOpen} />
+                <Navi/>
+                <Sidebar sidebarOpen={state.sidebarOpen}/>
                 <NoteDisplay />
             </Main>
             <NoteInfo showInfo={state.infoBarOpen} />

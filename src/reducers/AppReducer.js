@@ -12,19 +12,27 @@ class Note {
     }
 }
 
+function storeState(state) {
+    localStorage.setItem("state", JSON.stringify(state));
+}
+
 export default function AppReducer(state, action) {
     switch (action.type) {
         case globalTypes.toggleNav:
             console.log("navi");
             return { ...state, navbarOpen: !state.navbarOpen };
+
         case globalTypes.toggleInfo:
             console.log("open info");
             return { ...state, infoBarOpen: !state.infoBarOpen };
+
         case globalTypes.changeCurrentNote:
             const assignedNote = { ...action.note };
             return { ...state, currentNote: assignedNote };
+
         case globalTypes.toggleSidebar:
             return { ...state, sidebarOpen: !state.sidebarOpen };
+            
         case globalTypes.handleNotesChange:
             const stateCopy = { ...state };
             stateCopy[action.noteType] = stateCopy[action.noteType].map(
@@ -41,11 +49,15 @@ export default function AppReducer(state, action) {
                     }
                 }
             );
-
+            storeState(stateCopy);
             return stateCopy;
 
         case globalTypes.addNote:
             const newNote = new Note(uuidv4(), "New Note", [], "");
+            storeState({
+                ...state,
+                notes: [...state.notes, newNote],
+            });
 
             return {
                 ...state,
@@ -61,6 +73,16 @@ export default function AppReducer(state, action) {
                 }
             });
 
+            storeState({
+                ...state,
+                notes: state.notes.filter((note) => {
+                    if (note.id !== action.id) {
+                        return note;
+                    }
+                }),
+                trash: [...state.trash, deletedNote],
+            });
+
             return {
                 ...state,
                 notes: state.notes.filter((note) => {
@@ -72,6 +94,14 @@ export default function AppReducer(state, action) {
             };
 
         case globalTypes.deleteNote:
+            storeState({
+                ...state,
+                trash: state.trash.filter((note) => {
+                    if (note.id !== action.id) {
+                        return note;
+                    }
+                }),
+            });
             return {
                 ...state,
                 trash: state.trash.filter((note) => {
@@ -88,6 +118,16 @@ export default function AppReducer(state, action) {
                 if (note.id === action.id) {
                     restoredNote = note;
                 }
+            });
+
+            storeState({
+                ...state,
+                trash: state.trash.filter((note) => {
+                    if (note.id !== action.id) {
+                        return note;
+                    }
+                }),
+                notes: [...state.notes, restoredNote],
             });
 
             return {
@@ -123,6 +163,7 @@ export default function AppReducer(state, action) {
                 );
             }
 
+            storeState(newState);
             return newState;
 
         case globalTypes.removeTag:
@@ -135,6 +176,12 @@ export default function AppReducer(state, action) {
                         ...note.tags.filter((tag) => tag.title !== action.name),
                     ],
                 };
+            });
+
+            storeState({
+                ...state,
+                tags: [...state.tags.filter((item) => item.id !== action.id)],
+                notes: newNotes,
             });
 
             return {

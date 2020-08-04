@@ -37,7 +37,7 @@ export default function NotePreview({
     return (
         <Link to={`/${noteType}/${id}`} style={{order: pinToTop ? '-999' : 'unset'}}>
             <NoteBox>
-                <h3>{title ? cutText(45, title) : "New Note"}</h3>
+                <h3>{title ? cutText(60, title) : "New Note"}</h3>
                 <Subtitle withText={body}>
                     {body ? cutText(40,body) : "New Note"}
                 </Subtitle>

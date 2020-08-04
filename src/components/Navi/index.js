@@ -6,12 +6,13 @@ import iconDir from '../icon.svg';
 import { Link } from 'react-router-dom';
 import Taglist from '../Taglist';
 import { AppContext } from '../../contexts/AppContext';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 export default function () {
     const { state } = useContext(AppContext);
-
+    const { darkMode } = useContext(ThemeContext);
     return (
-        <Nav open={state.navbarOpen}>
+        <Nav open={state.navbarOpen} darkMode={darkMode}>
             <div className="">
                 <Link to='/'>
                     <Navlinks>

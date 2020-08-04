@@ -5,7 +5,7 @@ export default styled.input`
     font-size:1rem;
     color:inherit;
     border:none;
-    width:100%;
+    width:10rem;
     justify-self:start;
     padding:0.5rem;
     outline:none;

@@ -10,6 +10,11 @@ const Sidebar = styled.div`
     /* position:${props => props.sidebarOpen ? 'static' : 'absolute'}; */
     /* order:${props => props.sidebarOpen ? '10' : 'unset'}; */
 
+    @media only screen and (max-width:800px){
+        transform:translateX(${props => props.navbarOpen ? '30vw' : '0'});
+
+    }
+
 `;
 
 export default Sidebar;
