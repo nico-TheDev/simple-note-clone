@@ -1,64 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300;1,700&display=swap");
 
-:root{
-
-        --darkMain: #2c3e50;
-        --darkSub: #34495e;
-        --darkText: white;
-        --darkAccent: #3498db;
-        --lightMain: white;
-        --lightSub: gray;
-        --lightText: black;
-        --lightAccent: #3498db;
-    
+:root {
+    --darkMain: #2c3e50;
+    --darkSub: #34495e;
+    --darkText: white;
+    --darkAccent: #3498db;
+    --lightMain: white;
+    --lightSub: gray;
+    --lightText: black;
+    --lightAccent: #3498db;
 }
 
 *,
 *::before,
-*::after{
-  box-sizing: inherit;
-  margin:0;
-  padding:0;
-  transition:300ms;
+*::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+    transition: 300ms;
 }
-html{
-  box-sizing:border-box;
-}
-
-body{
-  font-family:'Lato',sans-serif;
-  line-height: 1.5;
-  overflow: hidden;
+html {
+    box-sizing: border-box;
 }
 
-a{
-  text-decoration: none;
-  color:inherit;
+body {
+    font-family: "Lato", sans-serif;
+    line-height: 1.5;
+    overflow: hidden;
 }
 
-li{
-  list-style: none;
-  color:inherit;
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
-button,input{
-  border: none;
-  font-family: inherit;
-  font-size: inherit;
-  background:none;
-  color:inherit;
-  outline:none;
+li {
+    list-style: none;
+    color: inherit;
 }
 
-button{
-  cursor: pointer;
+button,
+input {
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+    background: none;
+    color: inherit;
+    outline: none;
 }
 
-
-svg{
-  pointer-events: none;
+button {
+    cursor: pointer;
 }
 
-button:hover svg{
-  fill:var(--darkAccent) !important;
+svg {
+    pointer-events: none;
+}
+
+button:hover svg {
+    fill: var(--darkAccent) !important;
+}
+
+.note{
+  display:none;
+}
+
+@media only screen and (max-width: 800px) {
+    body {
+        background-color: var(--darkMain);
+        color: white;
+    }
+
+    #root{
+      display:none;
+    }
+
+    .note{
+      display:grid;
+      width:100%;
+      height:100vh;
+      place-items: center;
+      padding:3rem;
+      text-align: center;
+    }
 }
