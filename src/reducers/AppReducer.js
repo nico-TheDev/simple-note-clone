@@ -1,12 +1,27 @@
 import globalTypes from "../GlobalTypes";
 import { v4 as uuidv4 } from "uuid";
 
+class Note {
+    constructor(id, title, tags, body) {
+        this.id = id;
+        this.title = title;
+        this.tags = tags;
+        this.body = body;
+        this.pinToTop = false;
+    }
+}
+
 export default function AppReducer(state, action) {
     switch (action.type) {
         case globalTypes.toggleNav:
             console.log("navi");
             return { ...state, navbarOpen: !state.navbarOpen };
-
+        case globalTypes.toggleInfo:
+            console.log("open info");
+            return { ...state, infoBarOpen: !state.infoBarOpen };
+        case globalTypes.changeCurrentNote:
+            const assignedNote = { ...action.note };
+            return { ...state, currentNote: assignedNote };
         case globalTypes.handleNotesChange:
             const stateCopy = { ...state };
             stateCopy[action.noteType] = stateCopy[action.noteType].map(
@@ -26,17 +41,11 @@ export default function AppReducer(state, action) {
             return stateCopy;
 
         case globalTypes.addNote:
+            const newNote = new Note(uuidv4(), "New Note", [], "");
+
             return {
                 ...state,
-                notes: [
-                    ...state.notes,
-                    {
-                        id: uuidv4(),
-                        title: "New Note",
-                        tags: [],
-                        body: ``,
-                    },
-                ],
+                notes: [...state.notes, newNote],
             };
 
         case globalTypes.removeNote:
@@ -113,10 +122,28 @@ export default function AppReducer(state, action) {
             return newState;
 
         case globalTypes.removeTag:
+            let newNotes = [...state.notes];
+
+            newNotes = newNotes.map((note) => {
+                return {
+                    ...note,
+                    tags: [
+                        ...note.tags.filter((tag) => tag.title !== action.name),
+                    ],
+                };
+            });
+
             return {
                 ...state,
-                tags:[...state.tags.filter(item => item.id !== action.id)]
-            }
+                tags: [...state.tags.filter((item) => item.id !== action.id)],
+                notes: newNotes,
+            };
+
+        case globalTypes.changeQuery:
+            return {
+                ...state,
+                query: action.query,
+            };
 
         default:
             return state;

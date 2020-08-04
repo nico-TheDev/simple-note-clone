@@ -50,13 +50,13 @@ export default function ({ details: { title: name, id }, editMode }) {
 
     return (
         <Tag editMode={editMode}>
-            <Button onClick={() => dispatch({ type:globalTypes.removeTag,id }) }>
+            <Button onClick={() => dispatch({ type:globalTypes.removeTag,id,name }) }>
                 <Icon>
                     <use href={`${iconDir}#icon-delete1`}></use>
                 </Icon>
             </Button>
 
-            <Link to={`/tags/${name}`}>
+            <Link to={`/tag/${name}`}>
                 <TagName>{name}</TagName>
             </Link>
 

@@ -1,5 +1,6 @@
 export default {
     toggleNav:'TOGGLE_NAV',
+    toggleInfo:'TOGGLE_INFO',
     handleNotesChange:'HANDLE_NOTES_CHANGE',
     addNote:'ADD_NOTE',
     removeNote:'REMOVE_NOTE',
@@ -7,4 +8,6 @@ export default {
     deleteNote:'DELETE_NOTE',
     addTag:'ADD_TAG',
     removeTag:'REMOVE_TAG',
+    changeQuery:'CHANGE_QUERY',
+    changeCurrentNote:'CHANGE_NOTE'
 };

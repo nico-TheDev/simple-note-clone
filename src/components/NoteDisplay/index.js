@@ -1,8 +1,5 @@
 import React, { useContext, useState } from "react";
 import Head from "./NoteDIsplayHead";
-import Icon from "../shared/Icon";
-import Button from "../shared/Button";
-import iconDir from "../icon.svg";
 import styled from "styled-components";
 import { AppContext } from "../../contexts/AppContext";
 import { ThemeContext } from "../../contexts/ThemeContext";
@@ -12,6 +9,8 @@ import TagContainer from "./TagContainer";
 import Taglist from "./Taglist";
 import TagInput from "./TagInput";
 import Tag from "./Tag";
+import DeleteMode from "./DeleteMode";
+import NonDeleteMode from "./NonDeleteMode";
 
 const Display = styled.div`
     display: ${(props) => (props.noteId ? "grid" : "none")};
@@ -30,31 +29,11 @@ const DisplayInput = styled.textarea`
     background: transparent;
 `;
 
-const CustomButton = styled(Button)`
-    position: relative;
-
-    &::before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        display: block;
-        background-color: rgba(0, 0, 0, 0.2);
-        top: 0;
-        left: 0;
-        opacity: 0;
-    }
-
-    &:hover::before {
-        opacity: 1;
-    }
-`;
-
 export default function () {
     const location = useLocation();
     const { state, dispatch } = useContext(AppContext);
     const [query, setQuery] = useState("");
-    let { darkMode, setDarkMode } = useContext(ThemeContext);
+    let { darkMode,setCurrentNote } = useContext(ThemeContext);
     const noteId = location.pathname.slice(7);
     let currentNote,
         noteType,
@@ -87,70 +66,14 @@ export default function () {
                   <Tag key={tag.id} tagName={tag.title} />
               ))
             : null;
-
-    currentNote && console.log(currentNote.body);
+    setCurrentNote(currentNote);
     return (
         <Display navbarOpen={state.navbarOpen} noteId={noteId}>
             <Head>
                 {trashMode ? (
-                    <>
-                        <Button></Button>
-                        <CustomButton
-                            bg="crimson"
-                            color="white"
-                            onClick={() =>
-                                dispatch({
-                                    type: globalTypes.deleteNote,
-                                    id: noteId,
-                                })
-                            }
-                        >
-                            Delete Forever
-                        </CustomButton>
-                        <CustomButton
-                            bg="limegreen"
-                            color="white"
-                            onClick={() =>
-                                dispatch({
-                                    type: globalTypes.restoreNote,
-                                    id: noteId,
-                                })
-                            }
-                        >
-                            Restore
-                        </CustomButton>
-                    </>
+                    <DeleteMode noteId={noteId} />
                 ) : (
-                    <>
-                        <Button>
-                            <Icon>
-                                <use href={iconDir + "#icon-sidebar"}></use>
-                            </Icon>
-                        </Button>
-
-                        <Button onClick={() => setDarkMode(!darkMode)}>
-                            <Icon>
-                                <use href={iconDir + "#icon-moon"}></use>
-                            </Icon>
-                        </Button>
-                        <Button
-                            onClick={() =>
-                                dispatch({
-                                    type: globalTypes.removeNote,
-                                    id: noteId,
-                                })
-                            }
-                        >
-                            <Icon>
-                                <use href={iconDir + "#icon-delete"}></use>
-                            </Icon>
-                        </Button>
-                        <Button>
-                            <Icon>
-                                <use href={iconDir + "#icon-info"}></use>
-                            </Icon>
-                        </Button>
-                    </>
+                    <NonDeleteMode noteId={noteId} />
                 )}
             </Head>
 
@@ -174,9 +97,9 @@ export default function () {
                         type: globalTypes.addTag,
                         id: noteId,
                         tagname: query,
-                        noteType
+                        noteType,
                     });
-                    setQuery('');
+                    setQuery("");
                 }}
             >
                 <Taglist>{listOfTags}</Taglist>

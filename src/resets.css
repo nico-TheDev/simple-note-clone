@@ -38,6 +38,7 @@ a{
 
 li{
   list-style: none;
+  color:inherit;
 }
 
 button,input{

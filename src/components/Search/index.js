@@ -8,7 +8,7 @@ import { AppContext } from "../../contexts/AppContext";
 import globalTypes from "../../GlobalTypes";
 
 export default function () {
-    const { dispatch } = useContext(AppContext);
+    const { dispatch, state } = useContext(AppContext);
 
     return (
         <Search>
@@ -18,7 +18,17 @@ export default function () {
                 </Icon>
             </Button>
 
-            <SearchInput placeholder="All Notes" type="text" />
+            <SearchInput
+                placeholder="All Notes"
+                type="text"
+                onChange={(e) =>
+                    dispatch({
+                        type: globalTypes.changeQuery,
+                        query: e.target.value,
+                    })
+                }
+                value={state.query}
+            />
 
             <Button onClick={() => dispatch({ type: globalTypes.addNote })}>
                 <Icon>

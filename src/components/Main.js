@@ -6,6 +6,7 @@ const Main = styled.div`
     height: 100vh;
     background: ${(props) => (props.darkMode ? 'var(--darkMain)' : "var(--lightMain)")};
     color:${(props) => (props.darkMode ? 'var(--darkText)' : 'var(--lightText)')};
+    transform:${props => props.showInfo ? 'translateX(-20vw)' : 'none'};
 `;
 
 export default Main;

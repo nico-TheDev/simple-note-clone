@@ -34,22 +34,10 @@ export default function AppContextProvider({ children }) {
                 ],
                 body: `"sample 1
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit."`,
+                wordCount:1,
+                charCount:99
             },
-            // {
-            //     id: uuidv4(),
-            //     title:
-            //         "Sample Lorem ipsum, dolor sit amet consectetur adipisicing elit. Praesentium, sequi. 2",
-            //     tags: [],
-            //     body:
-            //         "32Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit.",
-            // },
-            // {
-            //     id: uuidv4(),
-            //     title: "Sample Title 3",
-            //     tags: [],
-            //     body:
-            //         "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat nemo aliquam quasi quibusdam nulla ad amet, delectus consectetur commodi? Quam quod a rem molestias, vero at cumque. Voluptates, culpa suscipit.",
-            // },
+           
         ],
         trash: [],
         tags: [
@@ -62,8 +50,7 @@ export default function AppContextProvider({ children }) {
                 title: "Tag2",
             },
         ],
-        query: "",
-    });
+        query: ""    });
 
     return (
         <AppContext.Provider value={{ state, dispatch }}>
