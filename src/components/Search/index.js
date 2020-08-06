@@ -2,37 +2,48 @@ import React, { useContext } from "react";
 import Search from "./Search";
 import Button from "../shared/Button";
 import Icon from "../shared/Icon";
-import iconDir from "../icon.svg";
+import getIcon from "../../getIcon";
 import SearchInput from "./SearchInput";
-import { AppContext } from "../../contexts/AppContext";
-import globalTypes from "../../GlobalTypes";
+import ActionTypes from "../../ActionTypes";
+import { QueryContext } from "../../contexts/QueryContext";
+import { DataContext } from "../../contexts/DataContext";
+import { UIContext } from "../../contexts/UIContext";
 
 export default function () {
-    const { dispatch, state } = useContext(AppContext);
+    const { query, setQuery } = useContext(QueryContext);
+    const { dispatch } = useContext(DataContext);
+    const { dispatch: UIDispatch } = useContext(UIContext);
+
+    const handleToggleNav = () => {
+        UIDispatch({ type: ActionTypes.TOGGLE_NAV });
+    };
+
+    const handleAddNote = () => {
+        dispatch({ type: ActionTypes.ADD_NOTE });
+    };
+
+    const handleChange = (e) => {
+        setQuery(e.target.value);
+    };
 
     return (
         <Search>
-            <Button onClick={() => dispatch({ type: globalTypes.toggleNav })}>
+            <Button onClick={handleToggleNav}>
                 <Icon>
-                    <use href={`${iconDir}#icon-menu`}></use>
+                    <use href={getIcon("menu")}></use>
                 </Icon>
             </Button>
 
             <SearchInput
                 placeholder="All Notes"
                 type="text"
-                onChange={(e) =>
-                    dispatch({
-                        type: globalTypes.changeQuery,
-                        query: e.target.value,
-                    })
-                }
-                value={state.query}
+                onChange={handleChange}
+                value={query}
             />
 
-            <Button onClick={() => dispatch({ type: globalTypes.addNote })}>
+            <Button onClick={handleAddNote}>
                 <Icon>
-                    <use href={`${iconDir}#icon-add-note`}></use>
+                    <use href={getIcon("add-note")}></use>
                 </Icon>
             </Button>
         </Search>

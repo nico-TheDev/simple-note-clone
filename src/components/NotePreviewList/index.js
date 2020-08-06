@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
-import NotePreview from "./NotePreview";
-import styled from "styled-components";
-import { AppContext } from "../../contexts/AppContext";
+import React, { useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
+import styled from "styled-components";
+
+import NotePreview from "./NotePreview";
+import { AppContext } from "../../contexts/AppContext";
 
 const PreviewList = styled.div`
     height: 100%;
@@ -24,6 +25,9 @@ const Placeholder = styled.h2`
 export default function () {
     const location = useLocation();
     const { state } = useContext(AppContext);
+    const [previewItems,setPreviewItems] = useState(null);
+
+
     const regex = /trash/;
     let previewItems, noteType;
 

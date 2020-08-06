@@ -1,12 +1,13 @@
+import React, { useContext } from "react";
 import styled from "styled-components";
-import React,{ useContext } from "react";
-import Button from "../shared/Button";
-import iconDir from "../icon.svg";
-import Icon from "../shared/Icon";
 import { Link } from "react-router-dom";
-import { AppContext } from "../../contexts/AppContext";
-import globalTypes from '../../GlobalTypes';
 
+import Button from "../shared/Button";
+import getIcon from "../../getIcon";
+import Icon from "../shared/Icon";
+import ActionTypes from "../../ActionTypes";
+import { DataContext } from "../../contexts/DataContext";
+import { AppContext } from "../../contexts/AppContext";
 
 const Tag = styled.li`
     height: max-content;
@@ -23,20 +24,13 @@ const Tag = styled.li`
     & button:first-child {
         position: relative;
         opacity: 1;
-        left: ${(props) => (props.editMode ? "0" : "-100%")};
+        left: ${({ editMode }) => (editMode ? "0" : "-100%")};
     }
     & button:last-child {
         position: relative;
         opacity: 1;
-        right: ${(props) => (props.editMode ? "0" : "-100%")};
+        right: ${({ editMode }) => (editMode ? "0" : "-100%")};
     }
-
-    /* &:hover button:first-child{
-        left:0;
-    }
-    &:hover button:last-child{
-        right:0;
-    } */
 `;
 
 const TagName = styled.p`
@@ -44,15 +38,19 @@ const TagName = styled.p`
 `;
 
 export default function ({ details: { title: name, id }, editMode }) {
-    const { dispatch } = useContext(AppContext);
+    const { dispatch } = useContext(DataContext);
 
-
+    const handleClick = () => {
+        dispatch({ type: ActionTypes.REMOVE_TAG, id, name })
+    }
 
     return (
         <Tag editMode={editMode}>
-            <Button onClick={() => dispatch({ type:globalTypes.removeTag,id,name }) }>
+            <Button
+                onClick={handleClick}
+            >
                 <Icon>
-                    <use href={`${iconDir}#icon-delete1`}></use>
+                    <use href={getIcon('delete1')}></use>
                 </Icon>
             </Button>
 
@@ -62,7 +60,7 @@ export default function ({ details: { title: name, id }, editMode }) {
 
             <Button>
                 <Icon>
-                    <use href={iconDir + "#icon-drag_handle"}></use>
+                    <use href={getIcon('drag_handle')}></use>
                 </Icon>
             </Button>
         </Tag>
