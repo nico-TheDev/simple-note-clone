@@ -6,14 +6,10 @@ import DataContextProvider from "./contexts/DataContext";
 import QueryContextProvider from "./contexts/QueryContext";
 import UIContextProvider from "./contexts/UIContext";
 import CurrentNoteContextProvider from "./contexts/CurrentNoteContext";
-// COMPONENTS
-import Main from "./components/Main";
-import Sidebar from "./components/Sidebar";
-import Navi from "./components/Navi";
-import NoteDisplay from "./components/NoteDisplay/";
-import NoteInfo from "./components/NoteInfo";
+
 
 import "./resets.css";
+import AppSrc from "./AppSrc";
 
 export default function App() {
     
@@ -24,14 +20,7 @@ export default function App() {
                     <UIContextProvider>
                         <CurrentNoteContextProvider>
                             <Router>
-                                <>
-                                    <Main>
-                                        <Navi />
-                                        <Sidebar />
-                                        <NoteDisplay />
-                                    </Main>
-                                    <NoteInfo />
-                                </>
+                                <AppSrc/>
                             </Router>
                         </CurrentNoteContextProvider>
                     </UIContextProvider>

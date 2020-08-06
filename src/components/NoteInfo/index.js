@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
+import styled from "styled-components";
+
 import Icon from "../shared/Icon";
-import iconDir from "../icon.svg";
+import getIcon from "../../getIcon";
 import Button from "../shared/Button";
 import InfoBody from "./InfoBody";
-import styled from "styled-components";
+import ActionTypes from "../../ActionTypes";
 import { ThemeContext } from "../../contexts/ThemeContext";
-import { AppContext } from "../../contexts/AppContext";
-import globalTypes from "../../GlobalTypes";
+import { UIContext } from "../../contexts/UIContext";
+import { CurrentNoteContext } from "../../contexts/CurrentNoteContext";
 
 const InfoHead = styled.li`
     display: flex;
@@ -19,32 +21,39 @@ const InfoDate = styled.li`
     gap: 5px;
 `;
 export default function () {
-    const { darkMode, currentNote } = useContext(ThemeContext);
-    const { state, dispatch } = useContext(AppContext);
+    const { darkMode } = useContext(ThemeContext);
+    const { currentNote } = useContext(CurrentNoteContext);
+    const { state, dispatch } = useContext(UIContext);
+
+    const wordLength = currentNote ? currentNote.body.split(" ").length - 1 : 0;
+    const charLength = currentNote ? currentNote.body.length : 0;
+
+    const handleClick = () => {
+        dispatch({ type: ActionTypes.TOGGLE_INFO });
+    };
 
     return (
-        <InfoBody darkMode={darkMode} showInfo={state.infoBarOpen}>
+        <InfoBody darkMode={darkMode} showInfo={state.isInfoBarOpen}>
             <InfoHead>
                 <h3>Info</h3>
-                <Button
-                    onClick={() => dispatch({ type: globalTypes.toggleInfo })}
-                >
+                <Button onClick={handleClick}>
                     <Icon>
-                        <use href={iconDir + "#icon-remove_circle"}></use>
+                        <use href={getIcon("remove_circle")}></use>
                     </Icon>
                 </Button>
             </InfoHead>
 
             <InfoDate>
                 Modified:{" "}
-                <span>{currentNote ? currentNote.modified : null}</span>
+                {currentNote ? <span>currentNote.modified</span> : null}
             </InfoDate>
 
             <li>
-                {currentNote ? currentNote.body.split(" ").length - 1 : 0} words
+                {wordLength}
+                {wordLength !== 1 ? "words" : "word"}
             </li>
 
-            <li>{currentNote ? currentNote.body.length : 0} characters</li>
+            <li>{charLength} characters</li>
 
             <InfoHead>
                 <label htmlFor="check">Pin To Top</label>

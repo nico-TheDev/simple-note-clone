@@ -10,22 +10,22 @@ const Tag = styled.li`
         border-radius: 4rem;
         margin: 0.5rem;
         display: inline-block;
-        background:${props => props.darkMode ? 'gray' : 'white'};
-        border:1px solid transparent;
-        border-color:${props => props.darkMode ? 'transparent' : 'black'};
-    
+        background: ${({ darkMode }) => (darkMode ? "gray" : "white")};
+        border: 1px solid transparent;
+        border-color: ${({ darkMode }) => (darkMode ? "transparent" : "black")};
+
         &:hover {
-            background:${props => props.darkMode ? 'white' : 'black'};
-            color:${props => props.darkMode ? 'black' : 'white'};
+            background: ${({ darkMode }) => (darkMode ? "white" : "black")};
+            color: ${({ darkMode }) => (darkMode ? "black" : "white")};
         }
     }
 `;
 
 export default function ({ tagName }) {
-    const { darkMode } = useContext(ThemeContext);
+    const { isDarkMode } = useContext(ThemeContext);
 
     return (
-        <Tag darkMode={darkMode}>
+        <Tag darkMode={isDarkMode}>
             <Link to={`/tag/${tagName}`}>{tagName}</Link>
         </Tag>
     );

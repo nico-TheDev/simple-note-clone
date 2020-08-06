@@ -11,5 +11,5 @@ export default function UIContextProvider({ children }) {
         isInfoBarOpen: false,
     });
 
-    return <UIContext.Provider>{children}</UIContext.Provider>;
+    return <UIContext.Provider value={{state,dispatch}}>{children}</UIContext.Provider>;
 }

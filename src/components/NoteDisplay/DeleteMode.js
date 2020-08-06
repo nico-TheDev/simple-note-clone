@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
-import Button from "../shared/Button";
-import styled from "styled-components";
-import { AppContext } from "../../contexts/AppContext";
-import globalTypes from "../../GlobalTypes";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
+
+import ActionTypes from "../../ActionTypes";
+import Button from "../shared/Button";
+import { DataContext } from "../../contexts/DataContext";
 
 const CustomButton = styled(Button)`
     position: relative;
-
+    justify-self: flex-end;
     &::before {
         content: "";
         position: absolute;
@@ -26,36 +27,31 @@ const CustomButton = styled(Button)`
 `;
 
 export default function DeleteMode({ noteId }) {
-    const { state, dispatch } = useContext(AppContext);
+    const { dispatch } = useContext(DataContext);
     const history = useHistory();
+
+    const handleDelete = () => {
+        dispatch({
+            type: ActionTypes.DELETE_NOTE,
+            id: noteId,
+        });
+        history.push("/trash");
+    };
+
+    const handleRestore = () => {
+        dispatch({
+            type: ActionTypes.RESTORE_NOTE,
+            id: noteId,
+        });
+        history.push("/trash");
+    };
 
     return (
         <>
-            <Button></Button>
-            <CustomButton
-                bg="crimson"
-                color="white"
-                onClick={() => {
-                    dispatch({
-                        type: globalTypes.deleteNote,
-                        id: noteId,
-                    });
-                    history.push("/trash");
-                }}
-            >
+            <CustomButton bg="crimson" color="white" onClick={handleDelete}>
                 Delete Forever
             </CustomButton>
-            <CustomButton
-                bg="limegreen"
-                color="white"
-                onClick={() => {
-                    dispatch({
-                        type: globalTypes.restoreNote,
-                        id: noteId,
-                    });
-                    history.push("/trash");
-                }}
-            >
+            <CustomButton bg="limegreen" color="white" onClick={handleRestore}>
                 Restore
             </CustomButton>
         </>

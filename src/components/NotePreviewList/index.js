@@ -4,12 +4,13 @@ import styled from "styled-components";
 
 import NotePreview from "./NotePreview";
 import { AppContext } from "../../contexts/AppContext";
+import { DataContext } from "../../contexts/DataContext";
 
 const PreviewList = styled.div`
     height: 100%;
-    display:grid;
-    overflow-y: ${(props) => (props.length > 6 ? "scroll" : "initial")};
-    align-content:start;
+    display: grid;
+    overflow-y: ${({ length }) => (length > 6 ? "scroll" : "initial")};
+    align-content: start;
 `;
 
 const Placeholder = styled.h2`
@@ -24,36 +25,34 @@ const Placeholder = styled.h2`
 
 export default function () {
     const location = useLocation();
-    const { state } = useContext(AppContext);
-    const [previewItems,setPreviewItems] = useState(null);
-
-
-    const regex = /trash/;
-    let previewItems, noteType;
+    const { state } = useContext(DataContext);
+    const [previewItems, setPreviewItems] = useState([]);
+    const [noteType, setNoteType] = useState("");
 
     if (state.query !== "") {
-        noteType = "notes";
-        previewItems = state.notes.filter((item) => {
+        setNoteType("notes");
+        const itemList = state.notes.filter((item) => {
             if (item.body.toLowerCase().includes(state.query.toLowerCase())) {
                 return item;
             }
         });
-    } else if (regex.test(location.pathname)) {
-        noteType = "trash";
-        previewItems = state.trash;
+        setPreviewItems(itemList);
+    } else if (/trash/.test(location.pathname)) {
+        setNoteType("trash");
+        setPreviewItems(state.trash);
     } else if (/tag/.test(location.pathname)) {
-        noteType = "notes";
-        previewItems = state.notes.filter((item) => {
+        setNoteType("notes");
+        const itemList = state.notes.filter((item) => {
             const tagList = item.tags.map((tag) => tag.title);
 
             if (tagList.includes(location.pathname.slice(5))) {
                 return item;
             }
         });
-        console.log(previewItems);
+        setPreviewItems(itemList);
     } else {
-        noteType = "notes";
-        previewItems = state.notes;
+        setNoteType("notes");
+        setPreviewItems(state.notes);
     }
 
     return (

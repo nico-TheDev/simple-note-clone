@@ -4,10 +4,10 @@ export const ThemeContext = createContext();
 
 export default function ThemeContextProvider({ children }) {
  
-    const [darkMode, setDarkMode] = useState(true);
+    const [isDarkMode, setIsDarkMode] = useState(true);
 
     return (
-        <ThemeContext.Provider value={{ darkMode,setDarkMode }}>
+        <ThemeContext.Provider value={{ isDarkMode,setIsDarkMode }}>
             {children}
         </ThemeContext.Provider>
     );

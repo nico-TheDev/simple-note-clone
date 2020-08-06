@@ -1,16 +1,19 @@
 import React, { useContext, useState } from "react";
-import Head from "./NoteDIsplayHead";
 import styled from "styled-components";
-import { AppContext } from "../../contexts/AppContext";
-import { ThemeContext } from "../../contexts/ThemeContext";
 import { useLocation } from "react-router-dom";
-import globalTypes from "../../GlobalTypes";
+
+import Head from "./NoteDisplayHead";
+import ActionTypes from "../../ActionTypes";
 import TagContainer from "./TagContainer";
 import Taglist from "./Taglist";
 import TagInput from "./TagInput";
 import Tag from "./Tag";
 import DeleteMode from "./DeleteMode";
 import NonDeleteMode from "./NonDeleteMode";
+
+import { DataContext } from "../../contexts/DataContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
+import { CurrentNoteContext } from "../../contexts/CurrentNoteContext";
 
 const Display = styled.div`
     width: 100%;
@@ -38,17 +41,35 @@ const DisplayInput = styled.textarea`
 
 export default function () {
     const location = useLocation();
-    const { state, dispatch } = useContext(AppContext);
+    const { state, dispatch } = useContext(DataContext);
     const [query, setQuery] = useState("");
-    let { darkMode, setCurrentNote } = useContext(ThemeContext);
+    let { isDarkMode } = useContext(ThemeContext);
+    const { setCurrentNote } = useContext(CurrentNoteContext);
     const noteId = location.pathname.slice(7);
     let currentNote,
         noteType,
         trashMode = /trash/.test(location.pathname),
         listOfTags;
 
-    console.log(location);
-    console.log(location.pathname.slice(7));
+    const handleNotesChange = (e) => {
+        dispatch({
+            type: ActionTypes.HANDLE_NOTES_CHANGE,
+            id: noteId,
+            text: e.target.value,
+            noteType,
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch({
+            type: ActionTypes.ADD_TAG,
+            id: noteId,
+            tagname: query,
+            noteType,
+        });
+        setQuery("");
+    };
 
     if (/notes/.test(location.pathname)) {
         noteType = "notes";
@@ -87,32 +108,14 @@ export default function () {
             <DisplayInput
                 placeholder="New Note"
                 value={currentNote ? currentNote.body : "New Note"}
-                onChange={(e) =>
-                    dispatch({
-                        type: globalTypes.handleNotesChange,
-                        id: noteId,
-                        text: e.target.value,
-                        noteType,
-                    })
-                }
+                onChange={handleNotesChange}
             ></DisplayInput>
 
-            <TagContainer
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    dispatch({
-                        type: globalTypes.addTag,
-                        id: noteId,
-                        tagname: query,
-                        noteType,
-                    });
-                    setQuery("");
-                }}
-            >
+            <TagContainer onSubmit={handleSubmit}>
                 <Taglist>
                     {listOfTags}{" "}
                     <TagInput
-                        bg={darkMode}
+                        bg={isDarkMode}
                         type="text"
                         placeholder="Add a tag..."
                         onChange={(e) => setQuery(e.target.value)}
